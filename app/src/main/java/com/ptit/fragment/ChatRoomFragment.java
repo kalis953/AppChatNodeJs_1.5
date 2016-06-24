@@ -48,30 +48,7 @@ public class ChatRoomFragment extends Fragment {
 
     /// server
     private Socket mSocket;
-    private Emitter.Listener onSeverSendMessage = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            if (getActivity() != null){
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONObject arg = (JSONObject) args[0];
-                        try {
-                            JSONObject obj = arg.getJSONObject("noidung");
-                            String user = obj.getString("name");
-                            String message = obj.getString("message");
-                            arrChatRoom.add(message);
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            Log.e("ERROR OnRegister", e.toString());
-                            return;
-                        }
 
-                    }
-                });
-            }
-        }
-    };
 
 
     private Toolbar chatRoomToolBar;
@@ -229,4 +206,31 @@ public class ChatRoomFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private Emitter.Listener onSeverSendMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            if (getActivity() != null){
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject arg = (JSONObject) args[0];
+                        try {
+                            JSONObject obj = arg.getJSONObject("noidung");
+                            String user = obj.getString("name");
+                            String message = obj.getString("message");
+                            arrChatRoom.add(message);
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            Log.e("ERROR OnRegister", e.toString());
+                            return;
+                        }
+
+                    }
+                });
+            }
+        }
+    };
+
 }

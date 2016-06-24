@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="dividerTextBox">#6c6c6c</color>
+    <color name="lv_chatroom_divider_color">#cfcfcf</color>
 </resources>

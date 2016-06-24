@@ -2,12 +2,14 @@ package com.ptit.appchatnodejs;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.ptit.model.ChatRoom;
 import com.ptit.model.User;
 import com.ptit.supporter.mToast;
 import com.ptit.utils.ConnectionManager;
+import com.ptit.utils.SharedPreferencesOption;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     EditText txtUserName, txtPassword;
     TextView txtRegister;
     Button btnSignUp;
-
+    CheckBox checkboxSavedInfomation;
     EditText txtUserRegister, txtPasswordRegister, txtEmailRegister, txtPhoneRegister;
     Button btnRegister, btnCancel;
 
@@ -102,11 +105,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = txtUserName.getText().toString();
                 String password = txtPassword.getText().toString();
-                if (checkConnectToInternet.isConnectingToInternet()){
+                if (checkConnectToInternet.isConnectingToInternet()) {
                     mSocket.emit("client-send-login", name, password);
                 }
-
-
             }
         });
     }
@@ -238,6 +239,11 @@ public class MainActivity extends AppCompatActivity {
                         else {
 
                             mToast.toastShort(MainActivity.this, getString(R.string.txt_login_success_msg));
+                            //save status
+                            SharedPreferences pre = getSharedPreferences(getString(R.string.txt_user_share_preference),MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pre.edit();
+                            editor.putBoolean(getString(R.string.txt_is_saved_infomation),checkboxSavedInfomation.isChecked());
+                            editor.commit();
 
                             // lang nghe server-send-image
 
@@ -265,7 +271,13 @@ public class MainActivity extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtRegister = (TextView) findViewById(R.id.txtRegister);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
+        checkboxSavedInfomation = (CheckBox) findViewById(R.id.checkboxSignIn);
 
+
+        //read status
+        SharedPreferences pre = getSharedPreferences(getString(R.string.txt_user_share_preference),MODE_PRIVATE);
+        checkboxSavedInfomation.setChecked(pre.getBoolean(getString(R.string.txt_user_share_preference),false));
+        
     }
 
 //    private Emitter.Listener onServerUpdateListRoom = new Emitter.Listener() {

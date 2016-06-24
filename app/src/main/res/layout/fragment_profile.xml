@@ -31,11 +31,13 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/anhbia"
                 android:id="@+id/imgCollapsing"/>
+
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_detail"
+                android:id="@+id/toolbar_profile"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"
+                layout="@layout/toolbar_profile"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 

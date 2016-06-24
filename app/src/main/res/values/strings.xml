@@ -19,5 +19,7 @@
     <string name="txtConnectFail">NO CONNECT TO INTERNET</string>
     <string name="information">Thông tin cá nhân</string>
     <string name="userlogin">USERLOGIN</string>
+    <string name="txt_user_share_preference">USER_INFOMATION</string>
+    <string name="txt_is_saved_infomation">IsSavedInfomation</string>
 
 </resources>
